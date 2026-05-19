@@ -76,6 +76,22 @@ git push -u origin main
 
 若截图识别报错「ARK_API_KEY 未配置」，说明 Vercel 环境变量未保存或未重新 Deploy。
 
+### 部署失败：`maxDuration` / Hobby 计划
+
+免费 **Hobby** 计划 Serverless 函数最长 **10 秒**。若 `route.ts` 里写了 `maxDuration = 60`，部署可能直接失败。本项目已改为 `10`。
+
+截图识别通常需 **15–25 秒**。在 Hobby 上可能超时；需要 **Vercel Pro** 时，在 `vercel.json` 增加：
+
+```json
+{
+  "functions": {
+    "app/api/parse-mistake-image/route.ts": { "maxDuration": 60 }
+  }
+}
+```
+
+并同步把 `app/api/parse-mistake-image/route.ts` 里的 `maxDuration` 改为 `60`，然后 Redeploy。
+
 ## 费用与安全
 
 - **API 费用**：所有访客的截图识别都消耗**你账号**下的火山方舟额度，用的人越多费用越高  

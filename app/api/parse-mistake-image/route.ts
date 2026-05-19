@@ -4,7 +4,8 @@ import { getArkConfig } from "@/lib/ark";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-export const maxDuration = 60;
+/** Hobby 计划上限 10s；Pro 可在 vercel.json 调到 60s 以支持约 20s 的截图识别 */
+export const maxDuration = 10;
 
 const PROMPT = `你是一个雅思错题截图解析专家。截图可能来自雅思 **听力** 或 **阅读** 的答案对照页（如爱听写、剑桥真题答案、错题本截图等）。
 请识别用户做错的题（即「用户答案 ≠ 正确答案」），跳过做对的题。
